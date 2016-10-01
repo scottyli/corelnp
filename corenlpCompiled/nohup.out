@@ -1,0 +1,51 @@
+Starting server...
+Registering annotator segment with class edu.stanford.nlp.pipeline.ChineseSegmenterAnnotator
+Adding annotator segment
+Loading Chinese dictionaries from 1 file:
+  edu/stanford/nlp/models/segmenter/chinese/dict-chris6.ser.gz
+Done. Unique words in ChineseDictionary is: 423200.
+Loading classifier from edu/stanford/nlp/models/segmenter/chinese/ctb.gz ... done [13.7 sec].
+Adding annotator ssplit
+Adding annotator pos
+Reading POS tagger model from edu/stanford/nlp/models/pos-tagger/chinese-distsim/chinese-distsim.tagger ... done [2.0 sec].
+Adding annotator lemma
+Adding annotator ner
+Loading classifier from edu/stanford/nlp/models/ner/chinese.misc.distsim.crf.ser.gz ... done [9.4 sec].
+Adding annotator parse
+Loading parser from serialized file edu/stanford/nlp/models/lexparser/chineseFactored.ser.gz ... done [3.4 sec].
+Adding annotator mention
+Using mention detector type: rule
+Adding annotator sentiment
+StanfordCoreNLPServer listening at /0:0:0:0:0:0:0:0:9000
+Starting server...
+Registering annotator segment with class edu.stanford.nlp.pipeline.ChineseSegmenterAnnotator
+Adding annotator segment
+Loading Chinese dictionaries from 1 file:
+  edu/stanford/nlp/models/segmenter/chinese/dict-chris6.ser.gz
+Done. Unique words in ChineseDictionary is: 423200.
+Loading classifier from edu/stanford/nlp/models/segmenter/chinese/ctb.gz ... done [13.8 sec].
+Adding annotator ssplit
+Adding annotator pos
+Reading POS tagger model from edu/stanford/nlp/models/pos-tagger/chinese-distsim/chinese-distsim.tagger ... done [1.7 sec].
+Adding annotator lemma
+Adding annotator ner
+Loading classifier from edu/stanford/nlp/models/ner/chinese.misc.distsim.crf.ser.gz ... done [5.9 sec].
+Adding annotator parse
+Loading parser from serialized file edu/stanford/nlp/models/lexparser/chineseFactored.ser.gz ... done [7.8 sec].
+Adding annotator mention
+Using mention detector type: rule
+Adding annotator sentiment
+java.net.BindException: 地址已在使用
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at sun.net.httpserver.ServerImpl.<init>(ServerImpl.java:100)
+	at sun.net.httpserver.HttpServerImpl.<init>(HttpServerImpl.java:50)
+	at sun.net.httpserver.DefaultHttpServerProvider.createHttpServer(DefaultHttpServerProvider.java:35)
+	at com.sun.net.httpserver.HttpServer.create(HttpServer.java:130)
+	at edu.stanford.nlp.pipeline.StanfordCoreNLPServerMultiLang.run(StanfordCoreNLPServerMultiLang.java:670)
+	at edu.stanford.nlp.pipeline.StanfordCoreNLPServerMultiLang.main(StanfordCoreNLPServerMultiLang.java:721)
+错误: 找不到或无法加载主类 edu.stanford.nlp.pipeline.StanfordCoreNLPServerMultiLang
+错误: 找不到或无法加载主类 edu.stanford.nlp.pipeline.StanfordCoreNLPServerMultiLang
