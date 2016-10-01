@@ -271,6 +271,8 @@ public class CorefProperties {
   }
 
   public static String getMentionDetectionModel(Properties props) {
+	
+	  
     return PropertiesUtils.getString(props, MENTION_DETECTION_MODEL_PROP,
             useConstituencyParse(props) ? "edu/stanford/nlp/models/coref/md-model.ser" :
                     "edu/stanford/nlp/models/coref/md-model-dep.ser.gz");

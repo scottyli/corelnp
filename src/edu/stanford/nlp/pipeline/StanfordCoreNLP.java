@@ -960,7 +960,9 @@ public class StanfordCoreNLP extends AnnotationPipeline  {
   protected static BiConsumer<Annotation, OutputStream> createOutputter(Properties properties, AnnotationOutputter.Options outputOptions) {
     final OutputFormat outputFormat =
         OutputFormat.valueOf(properties.getProperty("outputFormat", DEFAULT_OUTPUT_FORMAT).toUpperCase());
-
+    
+    
+    
     final String serializerClass = properties.getProperty("serializer", GenericAnnotationSerializer.class.getName());
     final String outputSerializerClass = properties.getProperty("outputSerializer", serializerClass);
     final String outputSerializerName = (serializerClass.equals(outputSerializerClass))? "serializer":"outputSerializer";

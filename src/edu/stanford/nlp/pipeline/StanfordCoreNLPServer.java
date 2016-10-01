@@ -67,6 +67,7 @@ public class StanfordCoreNLPServer implements Runnable {
   protected final String shutdownKey;
 
   public static int MAX_CHAR_LENGTH = 100000;
+  @ArgumentParser.Option(name="props", gloss="The default annotators to run over a given sentence.")
   public final Properties defaultProps;
 
   /**
@@ -91,8 +92,8 @@ public class StanfordCoreNLPServer implements Runnable {
    * @param strict If true, conform more strictly to the HTTP spec (e.g., for character encoding).
    * @throws IOException Thrown from the underlying socket implementation.
    */
-  public StanfordCoreNLPServer(int port, int timeout, boolean strict) throws IOException {
-    this();
+  public StanfordCoreNLPServer(int port, int timeout, boolean strict,String args[]) throws IOException {
+    this(args);
     this.serverPort = port;
     this.timeoutMilliseconds = timeout;
     this.strict = strict;
@@ -102,18 +103,35 @@ public class StanfordCoreNLPServer implements Runnable {
    * Create a new Stanford CoreNLP Server, with the default parameters
    * @throws IOException
    */
-  public StanfordCoreNLPServer() throws IOException {
-    defaultProps = PropertiesUtils.asProperties(
-        "annotators", defaultAnnotators,  // Run these annotators by default
-        "coref.md.type", "dep",  // Use dependency trees with coref by default
-        "coref.mode",  "statistical",  // Use the new coref
-        "coref.language",  "en",  // We're English by default
-        "inputFormat", "text",   // By default, treat the POST data like text
-        "outputFormat", "json",  // By default, return in JSON -- this is a server, after all.
-        "prettyPrint", "false",  // Don't bother pretty-printing
-        "parse.model", "edu/stanford/nlp/models/srparser/englishSR.ser.gz",  // SR scales linearly with sentence length. Good for a server!
-        "parse.binaryTrees", "true",  // needed for the Sentiment annotator
-        "openie.strip_entailments", "true");  // these are large to serialize, so ignore them
+  public StanfordCoreNLPServer(String[] args) throws IOException {
+//    defaultProps = PropertiesUtils.asProperties(
+//        "annotators", defaultAnnotators,  // Run these annotators by default
+//        "coref.md.type", "dep",  // Use dependency trees with coref by default
+//        "coref.mode",  "statistical",  // Use the new coref
+//        "coref.language",  "en",  // We're English by default
+//        "inputFormat", "text",   // By default, treat the POST data like text
+//        "outputFormat", "json",  // By default, return in JSON -- this is a server, after all.
+//        "prettyPrint", "false",  // Don't bother pretty-printing
+//        "parse.model", "edu/stanford/nlp/models/srparser/englishSR.ser.gz",  // SR scales linearly with sentence length. Good for a server!
+//        "parse.binaryTrees", "true",  // needed for the Sentiment annotator
+//        "openie.strip_entailments", "true");  // these are large to serialize, so ignore them
+	  
+	  defaultProps = PropertiesUtils.asProperties(
+		        "annotators", "tokenize, ssplit, pos, lemma, ner, depparse, coref, natlog, openie",
+		        "coref.md.type", "dep",
+		        "inputFormat", "text",
+		        "outputFormat", "json",
+		        "prettyPrint", "false",
+		        "coref.language",  "zh",
+		        "inputFormat", "text",
+		        "outputFormat", "json",
+		        "prettyPrint", "false",
+		        "parse.model", "edu/stanford/nlp/models/lexparser/chineseFactored.ser.gz",
+		        "parse.binaryTrees", "true",
+		        "openie.strip_entailments", "true");
+	  
+	 Properties props = StringUtils.argsToProperties(args);
+	 defaultProps.putAll(props);
 
     // Generate and write a shutdown key
     String tmpDir = System.getProperty("java.io.tmpdir");
@@ -1095,7 +1113,7 @@ public class StanfordCoreNLPServer implements Runnable {
    */
   public static void main(String[] args) throws IOException {
     ArgumentParser.fillOptions(StanfordCoreNLPServer.class, args);
-    StanfordCoreNLPServer server = new StanfordCoreNLPServer();
+    StanfordCoreNLPServer server = new StanfordCoreNLPServer(args);
     ArgumentParser.fillOptions(server, args);
 
     // Create the homepage
